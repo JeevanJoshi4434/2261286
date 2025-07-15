@@ -5,6 +5,7 @@ const connectDB = require("./configs/database");
 const { PORT } = require("./environments/Application");
 require("dotenv").config();
 const HTTP_STATUS = require("./utils/HttpStatus");
+const urlRoute = require("./routers/shorturls");
 const cors = require("cors");
 class App {
     constructor() {
@@ -25,22 +26,17 @@ class App {
     }
 
     routes() {
-        const routesPath = path.join(__dirname, "routers");
-        const v1Router = express.Router();
-
-        fs.readdirSync(routesPath).forEach(file => {
-            if (file.endsWith(".js")) {
-                const route = require(path.join(routesPath, file));
-                const routeName = file.split(".")[0];
-                v1Router.use(`/${routeName}`, route);
+        this.app.use("/api/v1", urlRoute);
+    
+        const frontendPath = path.join(__dirname, "../build");
+        const indexFile = path.join(frontendPath, "index.html"); 
+        this.app.use(express.static(frontendPath)); 
+        this.app.get(/^\/(?!api\/v1).*/, (req, res) => {
+            if (fs.existsSync(indexFile)) {
+                res.sendFile(indexFile);
+            } else {
+                res.status(500).send("Frontend build not found.");
             }
-        });
-
-        this.app.use("/api/v1", v1Router);
-        const frontendPath = path.join(__dirname, "../shortenurl/build");
-        this.app.use(express.static(frontendPath));
-        this.app.get("*", (req, res) => {
-            res.sendFile(path.join(frontendPath, "index.html"));
         });
     }
 
