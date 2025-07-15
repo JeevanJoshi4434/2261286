@@ -5,7 +5,7 @@ simply go to the shortenurl folder and enter following command:
 `npm install`
 
 ### start frontend + backend
-simply fo to `shortenurl` and enter following command:
+simply go to `shortenurl` and enter following command:
 `npm run start` or `npm run dev` 
 it will run the both server and frontend
 
