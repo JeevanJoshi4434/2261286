@@ -1,7 +1,7 @@
 # Getting Started
 
 ### installation
-simply go to the shortenurl folder and enter following command:
+simply go to the `Frontend Test Submission` folder and enter following command:
 `npm install`
 
 ### start frontend + backend
