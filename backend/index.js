@@ -37,6 +37,11 @@ class App {
         });
 
         this.app.use("/api/v1", v1Router);
+        const frontendPath = path.join(__dirname, "../shortenurl/build");
+        this.app.use(express.static(frontendPath));
+        this.app.get("*", (req, res) => {
+            res.sendFile(path.join(frontendPath, "index.html"));
+        });
     }
 
     setAPISizeLimit(limit) {

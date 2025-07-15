@@ -82,21 +82,16 @@ class UrlService {
             return null;
         }
 
-        let data;
 
         if (shortCode !== null && shortCode.length > 0) {
-            const isExists = await url.findOne({ _id: shortCode });
+            const isExists = await url.findById(shortCode);
             if (isExists) {
-
+                Log("backend", "error", "service", `ShortCode "${shortCode}" already exists`);
+                throw new Error("Custom shortCode is already in use.");
             }
-            const data = await this.create(link, validity, shortCode);
-
-            return data;
-        } else {
-
-            data = await this.create(link, validity);
-        }
-        return data;
+            return await this.create(link, validity, shortCode); 
+        }  
+        return await this.create(link, validity);
     }
 
     static async create(link, validity = 30000, shortCode = null) {
