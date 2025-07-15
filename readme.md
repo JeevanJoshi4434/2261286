@@ -11,4 +11,4 @@ it will run the both server and frontend
 
 ### only backend
 to test only backend go to `backend` folder and install deps using `npm install` then use following command:
-`hnpm run dev`
+`npm run dev`
