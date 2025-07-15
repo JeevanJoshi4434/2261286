@@ -42,7 +42,7 @@ const SearchBar = () => {
                     return;
                 }
 
-                const URLRegex = "^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|localhost)(:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(#[-a-z\\d_]*)?$"; // eslint-disable-line no-useless-escape
+                const URLRegex =  /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}/;
                 if(!url.url.match(URLRegex)){
                     Log("frontend", "error", "api", "Invalid URL");
                     return;
@@ -136,7 +136,7 @@ const SearchBar = () => {
                                                     Expires: {new Date(res.expiry).toLocaleString()}
                                                 </>
                                             ) : (
-                                                <>Error: {res.error}</>
+                                                <>Error: {res?.error}</>
                                             )}
                                         </div>
                                     </div>

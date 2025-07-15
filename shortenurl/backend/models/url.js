@@ -40,7 +40,7 @@ const shortURLSchema = new mongoose.Schema({
 
 shortURLSchema.pre("save", async function (next) {
     const doc = this;
-    if (doc.isNew) {
+    if (doc.isNew && !doc._id) {
         const counter = await Counter.findByIdAndUpdate(
             { _id:"shortUrl"},
             { $inc:{ seq: 1 }},

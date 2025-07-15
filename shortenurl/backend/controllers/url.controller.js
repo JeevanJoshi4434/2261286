@@ -22,7 +22,7 @@ class UrlController {
                 Log("backend", "error", "controller", `Error: createShortUrl(req, res), originalUrl is not a string.`);
                 return ApiResponse.error(res, "Original URL must be a string.", HTTP_STATUS.BAD_REQUEST);
             }
-            
+            console.log(originalUrl, expireIn, shortCode);
             const shortUrl = await UrlService.createURL(originalUrl, expireIn, shortCode);
 
             const data = {

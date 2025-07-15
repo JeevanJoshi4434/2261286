@@ -84,11 +84,12 @@ class UrlService {
 
         if (shortCode !== null && shortCode.length > 0) {
             const isExists = await url.findById(shortCode);
+            console.log(isExists, shortCode);
             if (isExists) {
-                Log("backend", "error", "service", `ShortCode "${shortCode}" already exists`);
-                throw new Error("Custom shortCode is already in use.");
+                Log("backend", "info", "service", `ShortCode "${shortCode}" already exists`);
+            } else {
+                return await this.create(link, validity, shortCode);
             }
-            return await this.create(link, validity, shortCode);
         }
         return await this.create(link, validity);
     }
